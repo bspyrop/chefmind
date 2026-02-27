@@ -12,6 +12,7 @@ import logging
 import re
 
 from langchain.agents import create_agent
+from langchain_community.callbacks import get_openai_callback
 from langchain_core.messages import AIMessage, HumanMessage, ToolMessage
 from langchain_openai import ChatOpenAI
 from langgraph.checkpoint.memory import MemorySaver
@@ -71,13 +72,18 @@ def extract_ui_json(text: str) -> tuple[str, dict]:
 
 # ── Run helper ────────────────────────────────────────────────────────────────
 
+# gpt-4o-mini pricing (per token)
+_INPUT_COST_PER_TOKEN  = 0.150 / 1_000_000   # $0.150 per 1M input tokens
+_OUTPUT_COST_PER_TOKEN = 0.600 / 1_000_000   # $0.600 per 1M output tokens
+
+
 def run_agent(
     agent,
     user_input: str,
     thread_id: str = "chefmind-session",
-) -> tuple[str, dict, list[dict]]:
+) -> tuple[str, dict, list[dict], dict]:
     """
-    Invoke the agent and return (display_text, ui_json_dict, tool_calls_list).
+    Invoke the agent and return (display_text, ui_json_dict, tool_calls_list, usage).
 
     Args:
         agent:      The compiled LangGraph agent from build_agent()
@@ -88,15 +94,17 @@ def run_agent(
         display_text  — the assistant's response with UI_JSON stripped out
         ui_json       — parsed UI_JSON dict for updating Streamlit panels
         tool_calls    — list of {tool, input, output} dicts for the Tools panel
+        usage         — {prompt_tokens, completion_tokens, total_tokens, cost_usd}
     """
     config = {
         "configurable": {"thread_id": thread_id},
         "recursion_limit": 12,   # max tool-call rounds before forcing a final answer
     }
-    result = agent.invoke(
-        {"messages": [HumanMessage(content=user_input)]},
-        config=config,
-    )
+    with get_openai_callback() as cb:
+        result = agent.invoke(
+            {"messages": [HumanMessage(content=user_input)]},
+            config=config,
+        )
 
     messages = result.get("messages", [])
 
@@ -126,5 +134,15 @@ def run_agent(
                     "output": str(tool_result),  # full output; truncation happens in app.py display
                 })
 
+    usage = {
+        "prompt_tokens": cb.prompt_tokens,
+        "completion_tokens": cb.completion_tokens,
+        "total_tokens": cb.total_tokens,
+        "cost_usd": (
+            cb.prompt_tokens * _INPUT_COST_PER_TOKEN
+            + cb.completion_tokens * _OUTPUT_COST_PER_TOKEN
+        ),
+    }
+
     display_text, ui_json = extract_ui_json(raw_output)
-    return display_text, ui_json, tool_calls
+    return display_text, ui_json, tool_calls, usage

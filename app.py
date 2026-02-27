@@ -93,6 +93,12 @@ def _init_state() -> None:
     if "show_rag_chunks" not in st.session_state:
         st.session_state.show_rag_chunks = False
 
+    if "usage_log" not in st.session_state:
+        st.session_state.usage_log = []
+
+    if "show_usage" not in st.session_state:
+        st.session_state.show_usage = False
+
 
 _init_state()
 
@@ -138,7 +144,7 @@ def _apply_ui_json(ui_json: dict) -> list[dict]:
 def _run_agent(user_input: str) -> tuple[str, dict]:
     from agent.agent import run_agent
 
-    display_text, ui_json, tool_calls = run_agent(
+    display_text, ui_json, tool_calls, usage = run_agent(
         st.session_state.agent,
         user_input,
         thread_id="chefmind-session",
@@ -158,6 +164,11 @@ def _run_agent(user_input: str) -> tuple[str, dict]:
                     st.session_state.rag_chunks = chunks
             except (json.JSONDecodeError, TypeError):
                 pass
+
+    st.session_state.usage_log.append({
+        "turn": len(st.session_state.usage_log) + 1,
+        **usage,
+    })
 
     return display_text, ui_json
 
@@ -297,7 +308,50 @@ with col_center:
 # ═══════════════════════════════════════════════════════════════════════════════
 
 with col_right:
-    # ── Panel: Tool Calls (top) ───────────────────────────────────────────────
+    # ── Panel: Usage & Costs ──────────────────────────────────────────────────
+    n_turns = len(st.session_state.usage_log)
+    usage_label = f"💰 Usage & Costs ({n_turns} turns)" if n_turns else "💰 Usage & Costs"
+    usage_toggle = "▲ Hide" if st.session_state.show_usage else "▼ Show"
+
+    u_hdr, u_btn = st.columns([3, 1])
+    u_hdr.markdown(f'<div class="panel-header">{usage_label}</div>', unsafe_allow_html=True)
+    if u_btn.button(usage_toggle, key="toggle_usage", use_container_width=True):
+        st.session_state.show_usage = not st.session_state.show_usage
+        st.rerun()
+
+    if st.session_state.show_usage:
+        if not st.session_state.usage_log:
+            st.caption("Token usage will appear here after your first message.")
+        else:
+            total_in  = sum(e["prompt_tokens"]     for e in st.session_state.usage_log)
+            total_out = sum(e["completion_tokens"]  for e in st.session_state.usage_log)
+            total_tok = sum(e["total_tokens"]       for e in st.session_state.usage_log)
+            total_cost = sum(e["cost_usd"]          for e in st.session_state.usage_log)
+
+            st.markdown(
+                f"**Session total &nbsp;—&nbsp;** "
+                f"In: `{total_in:,}` &nbsp; Out: `{total_out:,}` &nbsp; "
+                f"Total: `{total_tok:,}` &nbsp;|&nbsp; **${total_cost:.5f}**",
+                unsafe_allow_html=True,
+            )
+            st.dataframe(
+                [
+                    {
+                        "Turn": e["turn"],
+                        "In": e["prompt_tokens"],
+                        "Out": e["completion_tokens"],
+                        "Total": e["total_tokens"],
+                        "Cost $": f"{e['cost_usd']:.5f}",
+                    }
+                    for e in reversed(st.session_state.usage_log)
+                ],
+                use_container_width=True,
+                hide_index=True,
+            )
+
+    st.divider()
+
+    # ── Panel: Tool Calls ─────────────────────────────────────────────────────
     tc_count = len(st.session_state.tool_calls)
     tc_label = f"🔧 Tool Calls ({tc_count})" if tc_count else "🔧 Tool Calls"
     tc_toggle = "▲ Hide" if st.session_state.show_tool_calls else "▼ Show"
