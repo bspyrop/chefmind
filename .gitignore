@@ -1,0 +1,25 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+.venv/
+
+# Runtime data (generated at runtime — do not commit)
+data/chroma_db/
+data/chroma_nutrition/
+data/catalog.json
+
+# Large USDA data file (download separately)
+data/FoodData_Central_foundation_food_json_2025-12-18.json
+
+# macOS
+.DS_Store

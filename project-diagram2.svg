@@ -1,0 +1,453 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1240" font-family="'Segoe UI', system-ui, Arial, sans-serif">
+
+  <!-- ── Background ───────────────────────────────────────────────────────── -->
+  <rect width="1400" height="1240" fill="#0f1117" rx="0"/>
+
+  <!-- ── Grid pattern (subtle) ──────────────────────────────────────────── -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e2130" stroke-width="0.5"/>
+    </pattern>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4a9eff"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4ecb71"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#a78bfa"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#fb923c"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6b7280"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2dd4bf"/>
+    </marker>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="1240" fill="url(#grid)"/>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       TITLE
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <text x="700" y="42" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff" letter-spacing="1">ChefMind — Project Architecture</text>
+  <text x="700" y="64" text-anchor="middle" font-size="13" fill="#6b7280">AI Recipe &amp; Meal Planning Assistant · Streamlit + LangGraph + ChromaDB + OpenAI + USDA Nutrition RAG</text>
+  <line x1="80" y1="76" x2="1320" y2="76" stroke="#1e2130" stroke-width="1.5"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       LAYER LABELS (vertical, left side)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="12" y="90" width="18" height="130" rx="4" fill="#1d4ed8" opacity="0.7"/>
+  <text x="21" y="200" text-anchor="middle" font-size="10" font-weight="600" fill="#93c5fd" transform="rotate(-90,21,200)" letter-spacing="1">UI LAYER</text>
+
+  <rect x="12" y="240" width="18" height="140" rx="4" fill="#6d28d9" opacity="0.7"/>
+  <text x="21" y="360" text-anchor="middle" font-size="10" font-weight="600" fill="#c4b5fd" transform="rotate(-90,21,360)" letter-spacing="1">AGENT LAYER</text>
+
+  <rect x="12" y="400" width="18" height="315" rx="4" fill="#b45309" opacity="0.7"/>
+  <text x="21" y="570" text-anchor="middle" font-size="10" font-weight="600" fill="#fcd34d" transform="rotate(-90,21,570)" letter-spacing="1">TOOLS LAYER</text>
+
+  <rect x="12" y="735" width="18" height="228" rx="4" fill="#065f46" opacity="0.7"/>
+  <text x="21" y="862" text-anchor="middle" font-size="10" font-weight="600" fill="#6ee7b7" transform="rotate(-90,21,862)" letter-spacing="1">RAG LAYER</text>
+
+  <rect x="12" y="983" width="18" height="130" rx="4" fill="#7f1d1d" opacity="0.7"/>
+  <text x="21" y="1058" text-anchor="middle" font-size="10" font-weight="600" fill="#fca5a5" transform="rotate(-90,21,1058)" letter-spacing="1">DATA LAYER</text>
+
+  <rect x="12" y="1133" width="18" height="80" rx="4" fill="#374151" opacity="0.7"/>
+  <text x="21" y="1190" text-anchor="middle" font-size="10" font-weight="600" fill="#9ca3af" transform="rotate(-90,21,1190)" letter-spacing="1">UTILITIES</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 1 — UI LAYER  (y: 90–220)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="200" y="90" width="800" height="130" rx="12" fill="#1e3a5f" stroke="#4a9eff" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="200" y="90" width="800" height="32" rx="12" fill="#1d4ed8" opacity="0.6"/>
+  <rect x="200" y="110" width="800" height="12" rx="0" fill="#1d4ed8" opacity="0.6"/>
+  <text x="600" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#bfdbfe">📱  app.py  —  Streamlit Entry Point</text>
+
+  <rect x="215" y="128" width="240" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="335" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Left Column (22%)</text>
+  <text x="335" y="161" text-anchor="middle" font-size="10" fill="#6b7280">▶ YouTube Player (iframe embed)</text>
+  <text x="335" y="175" text-anchor="middle" font-size="10" fill="#6b7280">📚 Video Catalog (click to select)</text>
+  <text x="335" y="189" text-anchor="middle" font-size="10" fill="#6b7280">video_start_time → autoplay</text>
+
+  <rect x="470" y="128" width="260" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="600" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Center Column (56%)</text>
+  <text x="600" y="161" text-anchor="middle" font-size="10" fill="#6b7280">💬 Chat history (messages[])</text>
+  <text x="600" y="175" text-anchor="middle" font-size="10" fill="#6b7280">▶ Watch Timestamp buttons</text>
+  <text x="600" y="189" text-anchor="middle" font-size="10" fill="#6b7280">Auto-scroll · sticky input bar</text>
+
+  <rect x="745" y="128" width="240" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="865" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Right Column (22%)</text>
+  <text x="865" y="161" text-anchor="middle" font-size="10" fill="#6b7280">🔧 Tool Calls (expanders)</text>
+  <text x="865" y="175" text-anchor="middle" font-size="10" fill="#6b7280">🔍 RAG Evidence chunks</text>
+  <text x="865" y="189" text-anchor="middle" font-size="10" fill="#6b7280">JSON input/output display</text>
+
+  <rect x="1040" y="90" width="200" height="130" rx="10" fill="#1a2035" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="1140" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#93c5fd">Session State</text>
+  <text x="1140" y="130" text-anchor="middle" font-size="10" fill="#6b7280">agent  (CompiledStateGraph)</text>
+  <text x="1140" y="144" text-anchor="middle" font-size="10" fill="#6b7280">messages  [ ]</text>
+  <text x="1140" y="158" text-anchor="middle" font-size="10" fill="#6b7280">rag_chunks  [ ]</text>
+  <text x="1140" y="172" text-anchor="middle" font-size="10" fill="#6b7280">tool_calls  [ ]</text>
+  <text x="1140" y="186" text-anchor="middle" font-size="10" fill="#6b7280">selected_video_id</text>
+  <text x="1140" y="200" text-anchor="middle" font-size="10" fill="#6b7280">video_start_time</text>
+
+  <line x1="1040" y1="155" x2="1005" y2="155" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+  <line x1="1000" y1="148" x2="1040" y2="148" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 2 — AGENT LAYER  (y: 240–380)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="200" y="250" width="220" height="120" rx="10" fill="#2d1f5e" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="200" y="250" width="220" height="28" rx="10" fill="#6d28d9" opacity="0.6"/>
+  <rect x="200" y="266" width="220" height="12" rx="0" fill="#6d28d9" opacity="0.6"/>
+  <text x="310" y="269" text-anchor="middle" font-size="12" font-weight="700" fill="#ddd6fe">agent/prompts.py</text>
+  <text x="310" y="295" text-anchor="middle" font-size="10" fill="#c4b5fd">SYSTEM_PROMPT</text>
+  <text x="310" y="310" text-anchor="middle" font-size="10" fill="#9ca3af">· Role &amp; tool usage rules</text>
+  <text x="310" y="324" text-anchor="middle" font-size="10" fill="#9ca3af">· RAG + Nutrition priority rules</text>
+  <text x="310" y="338" text-anchor="middle" font-size="10" fill="#9ca3af">· UI_JSON contract</text>
+  <text x="310" y="355" text-anchor="middle" font-size="10" fill="#6b7280">INTENT_CLASSES [ ]</text>
+
+  <rect x="460" y="250" width="340" height="120" rx="10" fill="#2d1f5e" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="460" y="250" width="340" height="28" rx="10" fill="#6d28d9" opacity="0.6"/>
+  <rect x="460" y="266" width="340" height="12" rx="0" fill="#6d28d9" opacity="0.6"/>
+  <text x="630" y="269" text-anchor="middle" font-size="12" font-weight="700" fill="#ddd6fe">agent/agent.py  —  LangGraph Agent</text>
+  <text x="630" y="292" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">build_agent()</text>
+  <text x="630" y="307" text-anchor="middle" font-size="10" fill="#9ca3af">ChatOpenAI(gpt-4o-mini) + MemorySaver checkpointer</text>
+  <text x="630" y="321" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">run_agent(agent, user_input, thread_id)</text>
+  <text x="630" y="336" text-anchor="middle" font-size="10" fill="#9ca3af">→ (display_text, ui_json, tool_calls)</text>
+  <text x="630" y="351" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">extract_ui_json(text)</text>
+  <text x="630" y="365" text-anchor="middle" font-size="10" fill="#9ca3af">Regex parse UI_JSON block from response</text>
+
+  <rect x="840" y="250" width="220" height="120" rx="10" fill="#1a2035" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="950" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#c4b5fd">UI_JSON Contract</text>
+  <text x="950" y="290" text-anchor="middle" font-size="10" fill="#9ca3af">selected_video_id</text>
+  <text x="950" y="304" text-anchor="middle" font-size="10" fill="#9ca3af">video_recommendations [ ]</text>
+  <text x="950" y="318" text-anchor="middle" font-size="10" fill="#9ca3af">timestamps [ ] {label, time, video_id}</text>
+  <text x="950" y="332" text-anchor="middle" font-size="10" fill="#9ca3af">rag_queries [ ]</text>
+  <text x="950" y="346" text-anchor="middle" font-size="10" fill="#9ca3af">used_tools [ ]</text>
+  <text x="950" y="360" text-anchor="middle" font-size="10" fill="#9ca3af">notes_for_ui</text>
+
+  <line x1="420" y1="305" x2="458" y2="305" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <line x1="800" y1="310" x2="838" y2="310" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <line x1="600" y1="220" x2="600" y2="248" stroke="#4a9eff" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <path d="M 1060 255 Q 1100 200 1050 155" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 3 — TOOLS LAYER  (y: 400–715)  — 2 rows of tools
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="130" y="400" width="1050" height="310" rx="12" fill="#1c1308" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="130" y="400" width="1050" height="28" rx="12" fill="#b45309" opacity="0.5"/>
+  <rect x="130" y="416" width="1050" height="12" rx="0" fill="#b45309" opacity="0.5"/>
+  <text x="655" y="421" text-anchor="middle" font-size="13" font-weight="700" fill="#fcd34d">🔧  tools/tools.py  —  LangChain @tool Definitions  (ALL_TOOLS)</text>
+  <text x="655" y="439" text-anchor="middle" font-size="10" fill="#92400e">Singletons: get_store() · get_nutrition_store() (auto-ingests USDA on first call) · All tools return JSON strings</text>
+
+  <!-- Row 1 label -->
+  <text x="400" y="448" text-anchor="middle" font-size="9" fill="#6b7280" font-style="italic">— Transcript RAG tools —</text>
+
+  <!-- Tool 1: rag_search -->
+  <rect x="148" y="452" width="180" height="118" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="238" y="470" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">rag_search</text>
+  <text x="238" y="485" text-anchor="middle" font-size="9" fill="#9ca3af">query: str</text>
+  <text x="238" y="498" text-anchor="middle" font-size="9" fill="#9ca3af">k: int = 6</text>
+  <text x="238" y="511" text-anchor="middle" font-size="9" fill="#9ca3af">video_id: str = ""</text>
+  <line x1="158" y1="517" x2="328" y2="517" stroke="#374151" stroke-width="0.5"/>
+  <text x="238" y="531" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {results: [...]}</text>
+  <text x="238" y="545" text-anchor="middle" font-size="9" fill="#6b7280">Calls: store.search()</text>
+  <text x="238" y="559" text-anchor="middle" font-size="9" fill="#6b7280">ChromaDB semantic</text>
+  <text x="238" y="572" text-anchor="middle" font-size="9" fill="#6b7280">search + meta filter</text>
+
+  <!-- Tool 2: rag_add_youtube_video -->
+  <rect x="342" y="452" width="185" height="118" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="434" y="470" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">rag_add_youtube_video</text>
+  <text x="434" y="485" text-anchor="middle" font-size="9" fill="#9ca3af">url: str (full YouTube URL)</text>
+  <line x1="352" y1="492" x2="517" y2="492" stroke="#374151" stroke-width="0.5"/>
+  <text x="434" y="506" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {video_id, title,</text>
+  <text x="434" y="519" text-anchor="middle" font-size="9" fill="#6b7280">  url, chunks_added}</text>
+  <text x="434" y="534" text-anchor="middle" font-size="9" fill="#6b7280">Calls: ingest_video()</text>
+  <text x="434" y="549" text-anchor="middle" font-size="9" fill="#6b7280">Pipeline: yt-dlp +</text>
+  <text x="434" y="562" text-anchor="middle" font-size="9" fill="#6b7280">transcript-api + embed</text>
+
+  <!-- Tool 3: get_video_catalog -->
+  <rect x="541" y="452" width="165" height="118" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="623" y="470" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">get_video_catalog</text>
+  <text x="623" y="485" text-anchor="middle" font-size="9" fill="#9ca3af">(no arguments)</text>
+  <line x1="551" y1="492" x2="696" y2="492" stroke="#374151" stroke-width="0.5"/>
+  <text x="623" y="506" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {catalog: [...]}</text>
+  <text x="623" y="519" text-anchor="middle" font-size="9" fill="#6b7280">{video_id, title,</text>
+  <text x="623" y="532" text-anchor="middle" font-size="9" fill="#6b7280">  url, channel}</text>
+  <text x="623" y="547" text-anchor="middle" font-size="9" fill="#6b7280">Calls: store.get_catalog()</text>
+
+  <!-- Divider between rows -->
+  <line x1="148" y1="583" x2="1162" y2="583" stroke="#374151" stroke-width="0.8" stroke-dasharray="4,3"/>
+
+  <!-- Row 2 label -->
+  <text x="310" y="597" text-anchor="middle" font-size="9" fill="#2dd4bf" font-style="italic">— Nutrition RAG tools ✦ NEW —</text>
+  <text x="760" y="597" text-anchor="middle" font-size="9" fill="#6b7280" font-style="italic">— Recipe tools —</text>
+
+  <!-- Tool 4: nutrition_rag_search — NEW, teal highlight -->
+  <rect x="148" y="601" width="248" height="106" rx="8" fill="#0d2626" stroke="#2dd4bf" stroke-width="2"/>
+  <rect x="148" y="601" width="248" height="22" rx="8" fill="#134e4a" opacity="0.8"/>
+  <rect x="148" y="613" width="248" height="10" rx="0" fill="#134e4a" opacity="0.8"/>
+  <text x="178" y="613" font-size="8" fill="#2dd4bf" font-weight="700">✦ NEW</text>
+  <text x="272" y="619" text-anchor="middle" font-size="11" font-weight="700" fill="#5eead4">nutrition_rag_search</text>
+  <text x="272" y="634" text-anchor="middle" font-size="9" fill="#9ca3af">query: str · k: int = 5</text>
+  <line x1="158" y1="640" x2="386" y2="640" stroke="#374151" stroke-width="0.5"/>
+  <text x="272" y="654" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON USDA food results</text>
+  <text x="272" y="667" text-anchor="middle" font-size="9" fill="#6b7280">get_nutrition_store()</text>
+  <text x="272" y="680" text-anchor="middle" font-size="9" fill="#6b7280">Auto-ingests 365 foods on 1st call</text>
+  <text x="272" y="695" text-anchor="middle" font-size="9" fill="#2dd4bf">→ NutritionStoreManager</text>
+
+  <!-- Tool 5: nutrition_estimate -->
+  <rect x="410" y="601" width="200" height="106" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="510" y="619" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">nutrition_estimate</text>
+  <text x="510" y="634" text-anchor="middle" font-size="9" fill="#9ca3af">ingredients: list[str]</text>
+  <text x="510" y="647" text-anchor="middle" font-size="9" fill="#9ca3af">servings: int = 2</text>
+  <line x1="420" y1="653" x2="600" y2="653" stroke="#374151" stroke-width="0.5"/>
+  <text x="510" y="667" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON per_serving:</text>
+  <text x="510" y="680" text-anchor="middle" font-size="9" fill="#6b7280">{cal, protein, carbs, fat}</text>
+  <text x="510" y="695" text-anchor="middle" font-size="9" fill="#6b7280">LLM fallback (gpt-4o-mini)</text>
+
+  <!-- Tool 6: parse_recipe_from_transcript -->
+  <rect x="624" y="601" width="242" height="106" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="745" y="619" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">parse_recipe_from_transcript</text>
+  <text x="745" y="634" text-anchor="middle" font-size="9" fill="#9ca3af">transcript_text: str</text>
+  <line x1="634" y1="640" x2="856" y2="640" stroke="#374151" stroke-width="0.5"/>
+  <text x="745" y="654" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {title, servings,</text>
+  <text x="745" y="667" text-anchor="middle" font-size="9" fill="#6b7280">  ingredients, steps, tips}</text>
+  <text x="745" y="681" text-anchor="middle" font-size="9" fill="#6b7280">ChatOpenAI gpt-4o-mini</text>
+  <text x="745" y="695" text-anchor="middle" font-size="9" fill="#6b7280">temp=0.2 · culinary extraction</text>
+
+  <!-- Agent → Tools arrow -->
+  <line x1="630" y1="370" x2="630" y2="398" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="648" y="389" font-size="9" fill="#d97706">ALL_TOOLS</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 4 — RAG LAYER  (y: 743–963)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- rag/ingestion.py -->
+  <rect x="130" y="748" width="400" height="208" rx="10" fill="#052e16" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="130" y="748" width="400" height="28" rx="10" fill="#065f46" opacity="0.7"/>
+  <rect x="130" y="764" width="400" height="12" rx="0" fill="#065f46" opacity="0.7"/>
+  <text x="330" y="768" text-anchor="middle" font-size="12" font-weight="700" fill="#bbf7d0">rag/ingestion.py  —  YouTube Ingest Pipeline</text>
+
+  <text x="200" y="795" font-size="11" font-weight="600" fill="#4ade80">extract_video_id(url)</text>
+  <text x="200" y="809" font-size="10" fill="#6b7280">  Regex parse → 11-char video ID</text>
+  <text x="200" y="828" font-size="11" font-weight="600" fill="#4ade80">fetch_metadata / fetch_transcript</text>
+  <text x="200" y="842" font-size="10" fill="#6b7280">  yt-dlp + youtube-transcript-api v1.x</text>
+  <text x="200" y="861" font-size="11" font-weight="600" fill="#4ade80">chunk_transcript() → Documents[]</text>
+  <text x="200" y="875" font-size="10" fill="#6b7280">  Sliding window ~10s / ~400 tokens</text>
+  <!-- nutrition_ingestion sub-section -->
+  <line x1="148" y1="886" x2="520" y2="886" stroke="#059669" stroke-width="0.8" stroke-dasharray="4,2"/>
+  <text x="330" y="900" text-anchor="middle" font-size="10" font-weight="700" fill="#2dd4bf">rag/nutrition_ingestion.py  ✦ NEW</text>
+  <text x="330" y="915" text-anchor="middle" font-size="9" fill="#6b7280">load_nutrition_docs(json_path)</text>
+  <text x="330" y="929" text-anchor="middle" font-size="9" fill="#6b7280">Reads USDA JSON → 365 Documents[]</text>
+  <text x="330" y="943" text-anchor="middle" font-size="9" fill="#6b7280">Key nutrients per 100g as page_content</text>
+
+  <!-- rag/retriever.py -->
+  <rect x="548" y="748" width="400" height="208" rx="10" fill="#052e16" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="548" y="748" width="400" height="28" rx="10" fill="#065f46" opacity="0.7"/>
+  <rect x="548" y="764" width="400" height="12" rx="0" fill="#065f46" opacity="0.7"/>
+  <text x="748" y="768" text-anchor="middle" font-size="12" font-weight="700" fill="#bbf7d0">rag/retriever.py</text>
+
+  <!-- VectorStoreManager -->
+  <text x="578" y="790" font-size="11" font-weight="600" fill="#4ade80">VectorStoreManager  (chefmind_transcripts)</text>
+  <text x="578" y="804" font-size="10" fill="#6b7280">  add_documents · search(query, k, filter_video_id)</text>
+  <text x="578" y="818" font-size="10" fill="#6b7280">  get_catalog() · is_empty()</text>
+  <text x="578" y="832" font-size="10" fill="#6b7280">  Persist: data/chroma_db/ + data/catalog.json</text>
+  <!-- Divider -->
+  <line x1="566" y1="842" x2="938" y2="842" stroke="#059669" stroke-width="0.8" stroke-dasharray="4,2"/>
+  <!-- NutritionStoreManager -->
+  <text x="748" y="856" text-anchor="middle" font-size="10" font-weight="700" fill="#2dd4bf">NutritionStoreManager  (chefmind_nutrition)  ✦ NEW</text>
+  <text x="578" y="870" font-size="10" fill="#6b7280">  add_documents · search(query, k)</text>
+  <text x="578" y="884" font-size="10" fill="#6b7280">  is_empty() · Persist: data/chroma_nutrition/</text>
+  <text x="578" y="898" font-size="10" fill="#6b7280">  Auto-ingest via _auto_ingest_nutrition()</text>
+  <text x="578" y="912" font-size="10" fill="#6b7280">  Triggered on first get_nutrition_store() call</text>
+  <text x="578" y="926" font-size="10" fill="#6b7280">  similarity_search_with_score → L2 distance</text>
+  <text x="578" y="940" font-size="10" fill="#6b7280">  Source: USDA FoodData Central 2025-12-18</text>
+
+  <!-- External APIs box -->
+  <rect x="968" y="748" width="250" height="208" rx="10" fill="#1a1a2e" stroke="#6366f1" stroke-width="2"/>
+  <text x="1093" y="771" text-anchor="middle" font-size="12" font-weight="700" fill="#a5b4fc">External Services</text>
+
+  <rect x="983" y="781" width="220" height="42" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+  <text x="1093" y="797" text-anchor="middle" font-size="11" font-weight="600" fill="#c7d2fe">OpenAI API</text>
+  <text x="1093" y="812" text-anchor="middle" font-size="10" fill="#9ca3af">gpt-4o-mini · text-embedding-3-small</text>
+
+  <rect x="983" y="831" width="220" height="42" rx="6" fill="#0c1a0c" stroke="#16a34a" stroke-width="1"/>
+  <text x="1093" y="847" text-anchor="middle" font-size="11" font-weight="600" fill="#86efac">YouTube</text>
+  <text x="1093" y="862" text-anchor="middle" font-size="10" fill="#9ca3af">yt-dlp (metadata) · transcript-api (CC)</text>
+
+  <rect x="983" y="881" width="220" height="42" rx="6" fill="#1a0a0a" stroke="#ef4444" stroke-width="1"/>
+  <text x="1093" y="897" text-anchor="middle" font-size="11" font-weight="600" fill="#fca5a5">LangGraph Runtime</text>
+  <text x="1093" y="912" text-anchor="middle" font-size="10" fill="#9ca3af">create_agent · MemorySaver checkpointer</text>
+
+  <rect x="983" y="931" width="220" height="22" rx="6" fill="#0d2626" stroke="#2dd4bf" stroke-width="1"/>
+  <text x="1093" y="946" text-anchor="middle" font-size="10" font-weight="600" fill="#2dd4bf">USDA FoodData Central  ✦ (local JSON)</text>
+
+  <!-- Arrows: tools row1 → RAG -->
+  <line x1="238" y1="720" x2="238" y2="746" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <line x1="434" y1="720" x2="350" y2="746" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- nutrition_rag_search (row2) → NutritionStoreManager -->
+  <line x1="272" y1="707" x2="700" y2="860" stroke="#2dd4bf" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <!-- ingestion → retriever -->
+  <line x1="530" y1="835" x2="546" y2="835" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- nutrition_ingestion → NutritionStoreManager -->
+  <line x1="530" y1="915" x2="546" y2="900" stroke="#2dd4bf" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <!-- retriever → OpenAI -->
+  <line x1="948" y1="800" x2="981" y2="800" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <!-- ingestion → YouTube -->
+  <line x1="530" y1="848" x2="981" y2="848" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <!-- agent → LangGraph -->
+  <line x1="800" y1="370" x2="1093" y2="881" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 5 — DATA LAYER  (y: 988–1108)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ChromaDB (transcripts) -->
+  <rect x="80" y="993" width="218" height="108" rx="10" fill="#1a0808" stroke="#dc2626" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="80" y="993" width="218" height="28" rx="10" fill="#7f1d1d" opacity="0.6"/>
+  <rect x="80" y="1009" width="218" height="12" rx="0" fill="#7f1d1d" opacity="0.6"/>
+  <text x="189" y="1013" text-anchor="middle" font-size="11" font-weight="700" fill="#fecaca">🗄  data/chroma_db/</text>
+  <text x="189" y="1034" text-anchor="middle" font-size="10" fill="#f87171">chefmind_transcripts</text>
+  <text x="189" y="1048" text-anchor="middle" font-size="10" fill="#6b7280">YouTube chunks + timestamps</text>
+  <text x="189" y="1062" text-anchor="middle" font-size="10" fill="#6b7280">where={video_id} filter</text>
+  <text x="189" y="1076" text-anchor="middle" font-size="10" fill="#6b7280">OpenAI embeddings · disk persist</text>
+
+  <!-- ChromaDB (nutrition) — NEW -->
+  <rect x="310" y="993" width="218" height="108" rx="10" fill="#0d1f1f" stroke="#2dd4bf" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="310" y="993" width="218" height="28" rx="10" fill="#134e4a" opacity="0.6"/>
+  <rect x="310" y="1009" width="218" height="12" rx="0" fill="#134e4a" opacity="0.6"/>
+  <text x="419" y="1013" text-anchor="middle" font-size="11" font-weight="700" fill="#99f6e4">🗄  data/chroma_nutrition/  ✦</text>
+  <text x="419" y="1034" text-anchor="middle" font-size="10" fill="#2dd4bf">chefmind_nutrition</text>
+  <text x="419" y="1048" text-anchor="middle" font-size="10" fill="#6b7280">365 USDA foundation foods</text>
+  <text x="419" y="1062" text-anchor="middle" font-size="10" fill="#6b7280">Nutrients per 100g (embedded)</text>
+  <text x="419" y="1076" text-anchor="middle" font-size="10" fill="#6b7280">Auto-ingest on first query</text>
+
+  <!-- catalog.json -->
+  <rect x="540" y="993" width="200" height="108" rx="10" fill="#1a0808" stroke="#dc2626" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="540" y="993" width="200" height="28" rx="10" fill="#7f1d1d" opacity="0.6"/>
+  <rect x="540" y="1009" width="200" height="12" rx="0" fill="#7f1d1d" opacity="0.6"/>
+  <text x="640" y="1013" text-anchor="middle" font-size="11" font-weight="700" fill="#fecaca">📋  data/catalog.json</text>
+  <text x="640" y="1034" text-anchor="middle" font-size="10" fill="#6b7280">Video metadata registry</text>
+  <text x="640" y="1048" text-anchor="middle" font-size="10" fill="#9ca3af">[{video_id, title, url, channel}]</text>
+  <text x="640" y="1062" text-anchor="middle" font-size="10" fill="#6b7280">Updated on add_documents()</text>
+  <text x="640" y="1076" text-anchor="middle" font-size="10" fill="#6b7280">Used by get_catalog() + UI panel</text>
+
+  <!-- FoodData Central JSON — NEW -->
+  <rect x="752" y="993" width="218" height="108" rx="10" fill="#0d1f1f" stroke="#2dd4bf" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="752" y="993" width="218" height="28" rx="10" fill="#134e4a" opacity="0.6"/>
+  <rect x="752" y="1009" width="218" height="12" rx="0" fill="#134e4a" opacity="0.6"/>
+  <text x="861" y="1013" text-anchor="middle" font-size="10" font-weight="700" fill="#99f6e4">📄  FoodData_Central  ✦ NEW</text>
+  <text x="861" y="1030" text-anchor="middle" font-size="9" fill="#2dd4bf">data/ …foundation_food_json.json</text>
+  <text x="861" y="1048" text-anchor="middle" font-size="10" fill="#6b7280">USDA source file · 6.8 MB</text>
+  <text x="861" y="1062" text-anchor="middle" font-size="10" fill="#6b7280">365 foundation foods</text>
+  <text x="861" y="1076" text-anchor="middle" font-size="10" fill="#6b7280">Read once at auto-ingest time</text>
+
+  <!-- .env / Config -->
+  <rect x="982" y="993" width="188" height="108" rx="10" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <rect x="982" y="993" width="188" height="28" rx="10" fill="#1f2937" opacity="0.8"/>
+  <rect x="982" y="1009" width="188" height="12" rx="0" fill="#1f2937" opacity="0.8"/>
+  <text x="1076" y="1013" text-anchor="middle" font-size="12" font-weight="700" fill="#d1d5db">⚙  Config</text>
+  <text x="1076" y="1034" text-anchor="middle" font-size="10" fill="#9ca3af">.env  →  OPENAI_API_KEY</text>
+  <text x="1076" y="1048" text-anchor="middle" font-size="10" fill="#6b7280">.streamlit/config.toml</text>
+  <text x="1076" y="1062" text-anchor="middle" font-size="10" fill="#6b7280">pyproject.toml</text>
+  <text x="1076" y="1076" text-anchor="middle" font-size="10" fill="#6b7280">Python ≥ 3.12 + all deps</text>
+
+  <!-- Arrows: retriever → chroma_db -->
+  <line x1="660" y1="956" x2="235" y2="991" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <!-- retriever → catalog.json -->
+  <line x1="748" y1="956" x2="640" y2="991" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <!-- NutritionStoreManager → chroma_nutrition -->
+  <line x1="700" y1="956" x2="419" y2="991" stroke="#2dd4bf" stroke-width="1.5" marker-end="url(#arrow-teal)"/>
+  <!-- nutrition_ingestion → FoodData JSON (read) -->
+  <line x1="330" y1="956" x2="800" y2="991" stroke="#2dd4bf" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-teal)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 6 — UTILITIES  (y: 1133–1213)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="130" y="1138" width="200" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="230" y="1156" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">seed_index.py</text>
+  <text x="230" y="1171" text-anchor="middle" font-size="10" fill="#6b7280">Pre-seed index from</text>
+  <text x="230" y="1185" text-anchor="middle" font-size="10" fill="#6b7280">VIDEOS list (CLI)</text>
+  <text x="230" y="1199" text-anchor="middle" font-size="10" fill="#6b7280">python seed_index.py</text>
+
+  <rect x="350" y="1138" width="340" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="520" y="1156" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">debug/</text>
+  <text x="520" y="1171" text-anchor="middle" font-size="10" fill="#6b7280">catalog.py  ·  chunks.py  ·  search.py</text>
+  <text x="520" y="1185" text-anchor="middle" font-size="10" fill="#6b7280">Inspect index · test semantic search</text>
+
+  <rect x="710" y="1138" width="290" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="855" y="1156" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">help/</text>
+  <text x="855" y="1171" text-anchor="middle" font-size="10" fill="#6b7280">clear_all.py  ·  clear_video.py</text>
+  <text x="855" y="1185" text-anchor="middle" font-size="10" fill="#6b7280">Wipes chroma_db + chroma_nutrition + catalog</text>
+  <text x="855" y="1199" text-anchor="middle" font-size="10" fill="#6b7280">--yes flag to skip confirmation</text>
+
+  <rect x="1020" y="1138" width="188" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="1114" y="1156" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">main.py</text>
+  <text x="1114" y="1171" text-anchor="middle" font-size="10" fill="#6b7280">Placeholder shim</text>
+  <text x="1114" y="1185" text-anchor="middle" font-size="10" fill="#6b7280">streamlit run app.py</text>
+
+  <!-- Arrows: utilities → data -->
+  <line x1="230" y1="1138" x2="200" y2="1103" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <line x1="520" y1="1138" x2="520" y2="1103" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <line x1="855" y1="1138" x2="640" y2="1103" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       LEGEND
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="1218" y="993" width="166" height="280" rx="10" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="1301" y="1015" text-anchor="middle" font-size="12" font-weight="700" fill="#d1d5db">Legend</text>
+  <line x1="1228" y1="1021" x2="1374" y2="1021" stroke="#374151" stroke-width="0.8"/>
+
+  <rect x="1233" y="1031" width="14" height="14" rx="3" fill="#1d4ed8"/>
+  <text x="1255" y="1043" font-size="10" fill="#9ca3af">UI Layer (Streamlit)</text>
+
+  <rect x="1233" y="1053" width="14" height="14" rx="3" fill="#6d28d9"/>
+  <text x="1255" y="1065" font-size="10" fill="#9ca3af">Agent Layer (LangGraph)</text>
+
+  <rect x="1233" y="1075" width="14" height="14" rx="3" fill="#b45309"/>
+  <text x="1255" y="1087" font-size="10" fill="#9ca3af">Tools Layer (@tool)</text>
+
+  <rect x="1233" y="1097" width="14" height="14" rx="3" fill="#065f46"/>
+  <text x="1255" y="1109" font-size="10" fill="#9ca3af">RAG Layer (ChromaDB)</text>
+
+  <rect x="1233" y="1119" width="14" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="1255" y="1131" font-size="10" fill="#9ca3af">Data Layer (Disk)</text>
+
+  <rect x="1233" y="1141" width="14" height="14" rx="3" fill="#374151"/>
+  <text x="1255" y="1153" font-size="10" fill="#9ca3af">Utilities / CLI tools</text>
+
+  <rect x="1233" y="1163" width="14" height="14" rx="3" fill="#134e4a" stroke="#2dd4bf" stroke-width="1.5"/>
+  <text x="1255" y="1175" font-size="10" fill="#2dd4bf">✦ New: Nutrition RAG</text>
+
+  <line x1="1233" y1="1193" x2="1263" y2="1193" stroke="#4a9eff" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="1271" y="1197" font-size="10" fill="#9ca3af">Data / control flow</text>
+
+  <line x1="1233" y1="1211" x2="1263" y2="1211" stroke="#2dd4bf" stroke-width="2" marker-end="url(#arrow-teal)"/>
+  <text x="1271" y="1215" font-size="10" fill="#9ca3af">Nutrition flow ✦ NEW</text>
+
+  <line x1="1233" y1="1229" x2="1263" y2="1229" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <text x="1271" y="1233" font-size="10" fill="#9ca3af">Optional / indirect</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       DATA FLOW ANNOTATIONS
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <text x="580" y="235" font-size="9" fill="#4a9eff">user_input (str)</text>
+  <text x="490" y="394" font-size="9" fill="#d97706">tool_calls + rag_chunks</text>
+
+</svg>

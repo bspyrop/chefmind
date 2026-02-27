@@ -1,0 +1,445 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1080" font-family="'Segoe UI', system-ui, Arial, sans-serif">
+
+  <!-- ── Background ───────────────────────────────────────────────────────── -->
+  <rect width="1400" height="1080" fill="#0f1117" rx="0"/>
+
+  <!-- ── Grid pattern (subtle) ──────────────────────────────────────────── -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e2130" stroke-width="0.5"/>
+    </pattern>
+    <!-- Arrow markers -->
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4a9eff"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#4ecb71"/>
+    </marker>
+    <marker id="arrow-purple" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#a78bfa"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#fb923c"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#6b7280"/>
+    </marker>
+    <marker id="arrow-teal" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2dd4bf"/>
+    </marker>
+    <!-- Glow filters -->
+    <filter id="glow-blue" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/>
+    </filter>
+  </defs>
+  <rect width="1400" height="1080" fill="url(#grid)"/>
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       TITLE
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <text x="700" y="42" text-anchor="middle" font-size="26" font-weight="700" fill="#ffffff" letter-spacing="1">ChefMind — Project Architecture</text>
+  <text x="700" y="64" text-anchor="middle" font-size="13" fill="#6b7280">AI Recipe &amp; Meal Planning Assistant · Streamlit + LangGraph + ChromaDB + OpenAI</text>
+  <line x1="80" y1="76" x2="1320" y2="76" stroke="#1e2130" stroke-width="1.5"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       LAYER LABELS (vertical, left side)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <!-- UI Layer label -->
+  <rect x="12" y="90" width="18" height="130" rx="4" fill="#1d4ed8" opacity="0.7"/>
+  <text x="21" y="200" text-anchor="middle" font-size="10" font-weight="600" fill="#93c5fd" transform="rotate(-90,21,200)" letter-spacing="1">UI LAYER</text>
+
+  <!-- Agent Layer label -->
+  <rect x="12" y="240" width="18" height="140" rx="4" fill="#6d28d9" opacity="0.7"/>
+  <text x="21" y="360" text-anchor="middle" font-size="10" font-weight="600" fill="#c4b5fd" transform="rotate(-90,21,360)" letter-spacing="1">AGENT LAYER</text>
+
+  <!-- Tools Layer label -->
+  <rect x="12" y="400" width="18" height="200" rx="4" fill="#b45309" opacity="0.7"/>
+  <text x="21" y="510" text-anchor="middle" font-size="10" font-weight="600" fill="#fcd34d" transform="rotate(-90,21,510)" letter-spacing="1">TOOLS LAYER</text>
+
+  <!-- RAG Layer label -->
+  <rect x="12" y="620" width="18" height="200" rx="4" fill="#065f46" opacity="0.7"/>
+  <text x="21" y="740" text-anchor="middle" font-size="10" font-weight="600" fill="#6ee7b7" transform="rotate(-90,21,740)" letter-spacing="1">RAG LAYER</text>
+
+  <!-- Data Layer label -->
+  <rect x="12" y="840" width="18" height="120" rx="4" fill="#7f1d1d" opacity="0.7"/>
+  <text x="21" y="920" text-anchor="middle" font-size="10" font-weight="600" fill="#fca5a5" transform="rotate(-90,21,920)" letter-spacing="1">DATA LAYER</text>
+
+  <!-- Util Layer label -->
+  <rect x="12" y="980" width="18" height="80" rx="4" fill="#374151" opacity="0.7"/>
+  <text x="21" y="1040" text-anchor="middle" font-size="10" font-weight="600" fill="#9ca3af" transform="rotate(-90,21,1040)" letter-spacing="1">UTILITIES</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 1 — UI LAYER  (y: 90–220)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- app.py — big central UI box -->
+  <rect x="200" y="90" width="800" height="130" rx="12" fill="#1e3a5f" stroke="#4a9eff" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="200" y="90" width="800" height="32" rx="12" fill="#1d4ed8" opacity="0.6"/>
+  <rect x="200" y="110" width="800" height="12" rx="0" fill="#1d4ed8" opacity="0.6"/>
+  <text x="600" y="113" text-anchor="middle" font-size="13" font-weight="700" fill="#bfdbfe">📱  app.py  —  Streamlit Entry Point</text>
+
+  <!-- 3 sub-panels inside app.py -->
+  <!-- Left Panel -->
+  <rect x="215" y="128" width="240" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="335" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Left Column (22%)</text>
+  <text x="335" y="161" text-anchor="middle" font-size="10" fill="#6b7280">▶ YouTube Player (iframe embed)</text>
+  <text x="335" y="175" text-anchor="middle" font-size="10" fill="#6b7280">📚 Video Catalog (click to select)</text>
+  <text x="335" y="189" text-anchor="middle" font-size="10" fill="#6b7280">video_start_time → autoplay</text>
+
+  <!-- Center Panel -->
+  <rect x="470" y="128" width="260" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="600" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Center Column (56%)</text>
+  <text x="600" y="161" text-anchor="middle" font-size="10" fill="#6b7280">💬 Chat history (messages[])</text>
+  <text x="600" y="175" text-anchor="middle" font-size="10" fill="#6b7280">▶ Watch Timestamp buttons</text>
+  <text x="600" y="189" text-anchor="middle" font-size="10" fill="#6b7280">Auto-scroll · sticky input bar</text>
+
+  <!-- Right Panel -->
+  <rect x="745" y="128" width="240" height="82" rx="8" fill="#172554" stroke="#3b82f6" stroke-width="1"/>
+  <text x="865" y="146" text-anchor="middle" font-size="11" font-weight="600" fill="#93c5fd">Right Column (22%)</text>
+  <text x="865" y="161" text-anchor="middle" font-size="10" fill="#6b7280">🔧 Tool Calls (expanders)</text>
+  <text x="865" y="175" text-anchor="middle" font-size="10" fill="#6b7280">🔍 RAG Evidence chunks</text>
+  <text x="865" y="189" text-anchor="middle" font-size="10" fill="#6b7280">JSON input/output display</text>
+
+  <!-- Session State box -->
+  <rect x="1040" y="90" width="200" height="130" rx="10" fill="#1a2035" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="1140" y="113" text-anchor="middle" font-size="12" font-weight="700" fill="#93c5fd">Session State</text>
+  <text x="1140" y="130" text-anchor="middle" font-size="10" fill="#6b7280">agent  (CompiledStateGraph)</text>
+  <text x="1140" y="144" text-anchor="middle" font-size="10" fill="#6b7280">messages  [ ]</text>
+  <text x="1140" y="158" text-anchor="middle" font-size="10" fill="#6b7280">rag_chunks  [ ]</text>
+  <text x="1140" y="172" text-anchor="middle" font-size="10" fill="#6b7280">tool_calls  [ ]</text>
+  <text x="1140" y="186" text-anchor="middle" font-size="10" fill="#6b7280">selected_video_id</text>
+  <text x="1140" y="200" text-anchor="middle" font-size="10" fill="#6b7280">video_start_time</text>
+
+  <!-- Arrow: app.py ↔ session state -->
+  <line x1="1040" y1="155" x2="1005" y2="155" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+  <line x1="1000" y1="148" x2="1040" y2="148" stroke="#3b82f6" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-blue)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 2 — AGENT LAYER  (y: 240–380)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- agent/prompts.py -->
+  <rect x="200" y="250" width="220" height="120" rx="10" fill="#2d1f5e" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="200" y="250" width="220" height="28" rx="10" fill="#6d28d9" opacity="0.6"/>
+  <rect x="200" y="266" width="220" height="12" rx="0" fill="#6d28d9" opacity="0.6"/>
+  <text x="310" y="269" text-anchor="middle" font-size="12" font-weight="700" fill="#ddd6fe">agent/prompts.py</text>
+  <text x="310" y="295" text-anchor="middle" font-size="10" fill="#c4b5fd">SYSTEM_PROMPT</text>
+  <text x="310" y="310" text-anchor="middle" font-size="10" fill="#9ca3af">· Role &amp; tool usage rules</text>
+  <text x="310" y="324" text-anchor="middle" font-size="10" fill="#9ca3af">· RAG discipline rules</text>
+  <text x="310" y="338" text-anchor="middle" font-size="10" fill="#9ca3af">· UI_JSON contract</text>
+  <text x="310" y="355" text-anchor="middle" font-size="10" fill="#6b7280">INTENT_CLASSES [ ]</text>
+
+  <!-- agent/agent.py -->
+  <rect x="460" y="250" width="340" height="120" rx="10" fill="#2d1f5e" stroke="#8b5cf6" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="460" y="250" width="340" height="28" rx="10" fill="#6d28d9" opacity="0.6"/>
+  <rect x="460" y="266" width="340" height="12" rx="0" fill="#6d28d9" opacity="0.6"/>
+  <text x="630" y="269" text-anchor="middle" font-size="12" font-weight="700" fill="#ddd6fe">agent/agent.py  —  LangGraph Agent</text>
+  <text x="630" y="292" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">build_agent()</text>
+  <text x="630" y="307" text-anchor="middle" font-size="10" fill="#9ca3af">ChatOpenAI(gpt-4o-mini) + MemorySaver checkpointer</text>
+  <text x="630" y="321" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">run_agent(agent, user_input, thread_id)</text>
+  <text x="630" y="336" text-anchor="middle" font-size="10" fill="#9ca3af">→ (display_text, ui_json, tool_calls)</text>
+  <text x="630" y="351" text-anchor="middle" font-size="11" font-weight="600" fill="#c4b5fd">extract_ui_json(text)</text>
+  <text x="630" y="365" text-anchor="middle" font-size="10" fill="#9ca3af">Regex parse UI_JSON block from response</text>
+
+  <!-- UI_JSON box -->
+  <rect x="840" y="250" width="220" height="120" rx="10" fill="#1a2035" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="6,3"/>
+  <text x="950" y="272" text-anchor="middle" font-size="11" font-weight="700" fill="#c4b5fd">UI_JSON Contract</text>
+  <text x="950" y="290" text-anchor="middle" font-size="10" fill="#9ca3af">selected_video_id</text>
+  <text x="950" y="304" text-anchor="middle" font-size="10" fill="#9ca3af">video_recommendations [ ]</text>
+  <text x="950" y="318" text-anchor="middle" font-size="10" fill="#9ca3af">timestamps [ ] {label, time, video_id}</text>
+  <text x="950" y="332" text-anchor="middle" font-size="10" fill="#9ca3af">rag_queries [ ]</text>
+  <text x="950" y="346" text-anchor="middle" font-size="10" fill="#9ca3af">used_tools [ ]</text>
+  <text x="950" y="360" text-anchor="middle" font-size="10" fill="#9ca3af">notes_for_ui</text>
+
+  <!-- Arrows: agent layer -->
+  <!-- prompts → agent -->
+  <line x1="420" y1="305" x2="458" y2="305" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <!-- agent → UI_JSON -->
+  <line x1="800" y1="310" x2="838" y2="310" stroke="#8b5cf6" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <!-- app.py → agent (call down) -->
+  <line x1="600" y1="220" x2="600" y2="248" stroke="#4a9eff" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <!-- UI_JSON → app.py (update session) -->
+  <path d="M 1060 255 Q 1100 200 1050 155" stroke="#a78bfa" stroke-width="1.5" fill="none" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 3 — TOOLS LAYER  (y: 400–590)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- tools/tools.py wrapper -->
+  <rect x="130" y="400" width="1050" height="185" rx="12" fill="#1c1308" stroke="#d97706" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="130" y="400" width="1050" height="28" rx="12" fill="#b45309" opacity="0.5"/>
+  <rect x="130" y="416" width="1050" height="12" rx="0" fill="#b45309" opacity="0.5"/>
+  <text x="655" y="421" text-anchor="middle" font-size="13" font-weight="700" fill="#fcd34d">🔧  tools/tools.py  —  LangChain @tool Definitions  (ALL_TOOLS)</text>
+  <text x="655" y="439" text-anchor="middle" font-size="10" fill="#92400e">Singleton VectorStoreManager via get_store() · All tools return JSON strings</text>
+
+  <!-- Tool 1: rag_search -->
+  <rect x="148" y="448" width="180" height="128" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="238" y="466" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">rag_search</text>
+  <text x="238" y="481" text-anchor="middle" font-size="9" fill="#9ca3af">query: str</text>
+  <text x="238" y="494" text-anchor="middle" font-size="9" fill="#9ca3af">k: int = 6</text>
+  <text x="238" y="507" text-anchor="middle" font-size="9" fill="#9ca3af">video_id: str = ""</text>
+  <line x1="158" y1="513" x2="328" y2="513" stroke="#374151" stroke-width="0.5"/>
+  <text x="238" y="527" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {results: [...]}</text>
+  <text x="238" y="541" text-anchor="middle" font-size="9" fill="#6b7280">Calls: store.search()</text>
+  <text x="238" y="556" text-anchor="middle" font-size="9" fill="#6b7280">ChromaDB semantic</text>
+  <text x="238" y="569" text-anchor="middle" font-size="9" fill="#6b7280">search + meta filter</text>
+
+  <!-- Tool 2: rag_add_youtube_video -->
+  <rect x="342" y="448" width="185" height="128" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="434" y="466" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">rag_add_youtube_video</text>
+  <text x="434" y="481" text-anchor="middle" font-size="9" fill="#9ca3af">url: str (full YouTube URL)</text>
+  <line x1="352" y1="488" x2="517" y2="488" stroke="#374151" stroke-width="0.5"/>
+  <text x="434" y="502" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {video_id, title,</text>
+  <text x="434" y="515" text-anchor="middle" font-size="9" fill="#6b7280">  url, chunks_added}</text>
+  <text x="434" y="530" text-anchor="middle" font-size="9" fill="#6b7280">Calls: ingest_video()</text>
+  <text x="434" y="545" text-anchor="middle" font-size="9" fill="#6b7280">Pipeline: yt-dlp +</text>
+  <text x="434" y="558" text-anchor="middle" font-size="9" fill="#6b7280">transcript-api + embed</text>
+
+  <!-- Tool 3: get_video_catalog -->
+  <rect x="541" y="448" width="165" height="128" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="623" y="466" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">get_video_catalog</text>
+  <text x="623" y="481" text-anchor="middle" font-size="9" fill="#9ca3af">(no arguments)</text>
+  <line x1="551" y1="488" x2="696" y2="488" stroke="#374151" stroke-width="0.5"/>
+  <text x="623" y="502" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {catalog: [...]}</text>
+  <text x="623" y="515" text-anchor="middle" font-size="9" fill="#6b7280">{video_id, title,</text>
+  <text x="623" y="528" text-anchor="middle" font-size="9" fill="#6b7280">  url, channel}</text>
+  <text x="623" y="543" text-anchor="middle" font-size="9" fill="#6b7280">Calls: store.get_catalog()</text>
+
+  <!-- Tool 4: nutrition_estimate -->
+  <rect x="720" y="448" width="195" height="128" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="817" y="466" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">nutrition_estimate</text>
+  <text x="817" y="481" text-anchor="middle" font-size="9" fill="#9ca3af">ingredients: list[str]</text>
+  <text x="817" y="494" text-anchor="middle" font-size="9" fill="#9ca3af">servings: int = 2</text>
+  <line x1="730" y1="500" x2="905" y2="500" stroke="#374151" stroke-width="0.5"/>
+  <text x="817" y="514" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON per_serving:</text>
+  <text x="817" y="527" text-anchor="middle" font-size="9" fill="#6b7280">{cal, protein, carbs,</text>
+  <text x="817" y="540" text-anchor="middle" font-size="9" fill="#6b7280"> fat, fiber, sodium}</text>
+  <text x="817" y="555" text-anchor="middle" font-size="9" fill="#6b7280">ChatOpenAI gpt-4o-mini</text>
+  <text x="817" y="568" text-anchor="middle" font-size="9" fill="#6b7280">temp=0</text>
+
+  <!-- Tool 5: parse_recipe_from_transcript -->
+  <rect x="929" y="448" width="240" height="128" rx="8" fill="#1c1a08" stroke="#ca8a04" stroke-width="1.5"/>
+  <text x="1049" y="466" text-anchor="middle" font-size="11" font-weight="700" fill="#fde68a">parse_recipe_from_transcript</text>
+  <text x="1049" y="481" text-anchor="middle" font-size="9" fill="#9ca3af">transcript_text: str</text>
+  <line x1="939" y1="488" x2="1159" y2="488" stroke="#374151" stroke-width="0.5"/>
+  <text x="1049" y="502" text-anchor="middle" font-size="9" fill="#6b7280">→ JSON {title, servings,</text>
+  <text x="1049" y="515" text-anchor="middle" font-size="9" fill="#6b7280">  ingredients, steps, tips}</text>
+  <text x="1049" y="530" text-anchor="middle" font-size="9" fill="#6b7280">ChatOpenAI gpt-4o-mini</text>
+  <text x="1049" y="543" text-anchor="middle" font-size="9" fill="#6b7280">temp=0.2</text>
+  <text x="1049" y="558" text-anchor="middle" font-size="9" fill="#6b7280">Culinary extraction</text>
+
+  <!-- Agent → Tools arrow -->
+  <line x1="630" y1="370" x2="630" y2="398" stroke="#d97706" stroke-width="2" marker-end="url(#arrow-orange)"/>
+  <text x="648" y="389" font-size="9" fill="#d97706">ALL_TOOLS</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 4 — RAG LAYER  (y: 620–820)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- rag/ingestion.py -->
+  <rect x="130" y="625" width="400" height="185" rx="10" fill="#052e16" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="130" y="625" width="400" height="28" rx="10" fill="#065f46" opacity="0.7"/>
+  <rect x="130" y="641" width="400" height="12" rx="0" fill="#065f46" opacity="0.7"/>
+  <text x="330" y="645" text-anchor="middle" font-size="12" font-weight="700" fill="#bbf7d0">rag/ingestion.py  —  YouTube Ingest Pipeline</text>
+
+  <text x="200" y="672" font-size="11" font-weight="600" fill="#4ade80">extract_video_id(url)</text>
+  <text x="200" y="686" font-size="10" fill="#6b7280">  Regex parse → 11-char video ID</text>
+  <text x="200" y="705" font-size="11" font-weight="600" fill="#4ade80">fetch_metadata(video_id)</text>
+  <text x="200" y="719" font-size="10" fill="#6b7280">  yt-dlp → {title, channel, published_at, url}</text>
+  <text x="200" y="738" font-size="11" font-weight="600" fill="#4ade80">fetch_transcript(video_id)</text>
+  <text x="200" y="752" font-size="10" fill="#6b7280">  youtube-transcript-api v1.x</text>
+  <text x="200" y="766" font-size="10" fill="#6b7280">  .fetch().to_raw_data() → [{text, start, dur}]</text>
+  <text x="200" y="785" font-size="11" font-weight="600" fill="#4ade80">chunk_transcript(entries, video_id, meta)</text>
+  <text x="200" y="799" font-size="10" fill="#6b7280">  Sliding window ~10s / ~400 tokens → Documents[]</text>
+
+  <!-- Config badges -->
+  <rect x="350" y="670" width="165" height="46" rx="6" fill="#064e3b" stroke="#059669" stroke-width="1"/>
+  <text x="432" y="686" text-anchor="middle" font-size="10" font-weight="600" fill="#6ee7b7">Config Constants</text>
+  <text x="432" y="701" text-anchor="middle" font-size="10" fill="#9ca3af">CHUNK_MAX_SECONDS = 10</text>
+  <text x="432" y="714" text-anchor="middle" font-size="10" fill="#9ca3af">CHUNK_MAX_TOKENS = 400</text>
+
+  <!-- ingest_video -->
+  <rect x="350" y="725" width="165" height="76" rx="6" fill="#064e3b" stroke="#059669" stroke-width="1"/>
+  <text x="432" y="742" text-anchor="middle" font-size="11" font-weight="600" fill="#4ade80">ingest_video(url, store)</text>
+  <text x="432" y="757" text-anchor="middle" font-size="10" fill="#9ca3af">Full pipeline orchestrator</text>
+  <text x="432" y="771" text-anchor="middle" font-size="10" fill="#9ca3af">Returns: {video_id, title,</text>
+  <text x="432" y="785" text-anchor="middle" font-size="10" fill="#9ca3af">  chunks_added, status}</text>
+
+  <!-- rag/retriever.py -->
+  <rect x="570" y="625" width="380" height="185" rx="10" fill="#052e16" stroke="#16a34a" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="570" y="625" width="380" height="28" rx="10" fill="#065f46" opacity="0.7"/>
+  <rect x="570" y="641" width="380" height="12" rx="0" fill="#065f46" opacity="0.7"/>
+  <text x="760" y="645" text-anchor="middle" font-size="12" font-weight="700" fill="#bbf7d0">rag/retriever.py  —  VectorStoreManager</text>
+
+  <text x="600" y="672" font-size="11" font-weight="600" fill="#4ade80">__init__(persist_dir, catalog_path)</text>
+  <text x="600" y="686" font-size="10" fill="#6b7280">  Chroma + OpenAIEmbeddings, auto-load from disk</text>
+  <text x="600" y="704" font-size="11" font-weight="600" fill="#4ade80">add_documents(docs: list[Document])</text>
+  <text x="600" y="718" font-size="10" fill="#6b7280">  Embed + upsert → ChromaDB, update catalog</text>
+  <text x="600" y="736" font-size="11" font-weight="600" fill="#4ade80">search(query, k, filter_video_id)</text>
+  <text x="600" y="750" font-size="10" fill="#6b7280">  Semantic search with native where={} filter</text>
+  <text x="600" y="764" font-size="10" fill="#6b7280">  Returns: list[dict] chunk metadata</text>
+  <text x="600" y="782" font-size="11" font-weight="600" fill="#4ade80">get_catalog() / is_empty()</text>
+  <text x="600" y="796" font-size="10" fill="#6b7280">  Catalog: list[{video_id, title, url, channel}]</text>
+
+  <!-- External APIs box -->
+  <rect x="1000" y="625" width="250" height="185" rx="10" fill="#1a1a2e" stroke="#6366f1" stroke-width="2"/>
+  <text x="1125" y="648" text-anchor="middle" font-size="12" font-weight="700" fill="#a5b4fc">External Services</text>
+
+  <rect x="1015" y="658" width="220" height="42" rx="6" fill="#1e1b4b" stroke="#6366f1" stroke-width="1"/>
+  <text x="1125" y="674" text-anchor="middle" font-size="11" font-weight="600" fill="#c7d2fe">OpenAI API</text>
+  <text x="1125" y="689" text-anchor="middle" font-size="10" fill="#9ca3af">gpt-4o-mini · text-embedding-3-small</text>
+
+  <rect x="1015" y="708" width="220" height="42" rx="6" fill="#0c1a0c" stroke="#16a34a" stroke-width="1"/>
+  <text x="1125" y="724" text-anchor="middle" font-size="11" font-weight="600" fill="#86efac">YouTube</text>
+  <text x="1125" y="739" text-anchor="middle" font-size="10" fill="#9ca3af">yt-dlp (metadata) · transcript-api (CC)</text>
+
+  <rect x="1015" y="758" width="220" height="42" rx="6" fill="#1a0a0a" stroke="#ef4444" stroke-width="1"/>
+  <text x="1125" y="774" text-anchor="middle" font-size="11" font-weight="600" fill="#fca5a5">LangGraph Runtime</text>
+  <text x="1125" y="789" text-anchor="middle" font-size="10" fill="#9ca3af">create_agent · MemorySaver</text>
+
+  <!-- Arrows: tools → RAG -->
+  <!-- rag_search → retriever -->
+  <line x1="238" y1="576" x2="238" y2="621" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- rag_add → ingestion -->
+  <line x1="434" y1="576" x2="350" y2="623" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- ingestion → retriever -->
+  <line x1="530" y1="712" x2="568" y2="712" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <!-- retriever → OpenAI -->
+  <line x1="950" y1="712" x2="998" y2="690" stroke="#6366f1" stroke-width="1.5" marker-end="url(#arrow-purple)"/>
+  <!-- ingestion → YouTube -->
+  <line x1="530" y1="740" x2="1013" y2="730" stroke="#16a34a" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+  <!-- agent → LangGraph -->
+  <line x1="800" y1="370" x2="1125" y2="758" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,3" marker-end="url(#arrow-purple)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 5 — DATA LAYER  (y: 840–960)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- ChromaDB -->
+  <rect x="200" y="845" width="300" height="110" rx="10" fill="#1a0808" stroke="#dc2626" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="200" y="845" width="300" height="28" rx="10" fill="#7f1d1d" opacity="0.6"/>
+  <rect x="200" y="861" width="300" height="12" rx="0" fill="#7f1d1d" opacity="0.6"/>
+  <text x="350" y="865" text-anchor="middle" font-size="12" font-weight="700" fill="#fecaca">🗄  ChromaDB Vector Store</text>
+  <text x="350" y="886" text-anchor="middle" font-size="11" fill="#f87171">data/chroma_db/</text>
+  <text x="350" y="902" text-anchor="middle" font-size="10" fill="#6b7280">Persistent on disk · OpenAI embeddings</text>
+  <text x="350" y="916" text-anchor="middle" font-size="10" fill="#6b7280">Native metadata filter: where={video_id}</text>
+  <text x="350" y="930" text-anchor="middle" font-size="10" fill="#6b7280">Documents: {text, video_id, start/end_time_sec}</text>
+
+  <!-- Catalog JSON -->
+  <rect x="550" y="845" width="250" height="110" rx="10" fill="#1a0808" stroke="#dc2626" stroke-width="2" filter="url(#shadow)"/>
+  <rect x="550" y="845" width="250" height="28" rx="10" fill="#7f1d1d" opacity="0.6"/>
+  <rect x="550" y="861" width="250" height="12" rx="0" fill="#7f1d1d" opacity="0.6"/>
+  <text x="675" y="865" text-anchor="middle" font-size="12" font-weight="700" fill="#fecaca">📋  data/catalog.json</text>
+  <text x="675" y="886" text-anchor="middle" font-size="10" fill="#6b7280">Video metadata registry</text>
+  <text x="675" y="900" text-anchor="middle" font-size="10" fill="#9ca3af">[{video_id, title, url, channel}, ...]</text>
+  <text x="675" y="916" text-anchor="middle" font-size="10" fill="#6b7280">Updated on each add_documents()</text>
+  <text x="675" y="930" text-anchor="middle" font-size="10" fill="#6b7280">Used by get_catalog() + UI catalog panel</text>
+
+  <!-- .env -->
+  <rect x="850" y="845" width="200" height="110" rx="10" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <rect x="850" y="845" width="200" height="28" rx="10" fill="#1f2937" opacity="0.8"/>
+  <rect x="850" y="861" width="200" height="12" rx="0" fill="#1f2937" opacity="0.8"/>
+  <text x="950" y="865" text-anchor="middle" font-size="12" font-weight="700" fill="#d1d5db">⚙  Config</text>
+  <text x="950" y="886" text-anchor="middle" font-size="10" fill="#9ca3af">.env</text>
+  <text x="950" y="900" text-anchor="middle" font-size="10" fill="#6b7280">OPENAI_API_KEY</text>
+  <text x="950" y="916" text-anchor="middle" font-size="10" fill="#9ca3af">pyproject.toml</text>
+  <text x="950" y="930" text-anchor="middle" font-size="10" fill="#6b7280">Python ≥ 3.12 + all deps</text>
+
+  <!-- Arrows: retriever → data -->
+  <line x1="680" y1="810" x2="400" y2="843" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="760" y1="810" x2="675" y2="843" stroke="#dc2626" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       ROW 6 — UTILITIES  (y: 980–1060)
+  ═══════════════════════════════════════════════════════════════════════════ -->
+
+  <!-- seed_index.py -->
+  <rect x="130" y="983" width="200" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="230" y="1001" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">seed_index.py</text>
+  <text x="230" y="1016" text-anchor="middle" font-size="10" fill="#6b7280">Pre-seed index from</text>
+  <text x="230" y="1030" text-anchor="middle" font-size="10" fill="#6b7280">VIDEOS list (CLI)</text>
+  <text x="230" y="1044" text-anchor="middle" font-size="10" fill="#6b7280">python seed_index.py</text>
+
+  <!-- debug/ -->
+  <rect x="350" y="983" width="340" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="520" y="1001" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">debug/</text>
+  <text x="520" y="1016" text-anchor="middle" font-size="10" fill="#6b7280">catalog.py  ·  chunks.py  ·  debug_chunks.py</text>
+  <text x="520" y="1030" text-anchor="middle" font-size="10" fill="#6b7280">search.py</text>
+  <text x="520" y="1044" text-anchor="middle" font-size="10" fill="#6b7280">Inspect index · test semantic search</text>
+
+  <!-- help/ -->
+  <rect x="710" y="983" width="260" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="840" y="1001" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">help/</text>
+  <text x="840" y="1016" text-anchor="middle" font-size="10" fill="#6b7280">clear_all.py  ·  clear_video.py</text>
+  <text x="840" y="1030" text-anchor="middle" font-size="10" fill="#6b7280">Wipe index / remove one video</text>
+  <text x="840" y="1044" text-anchor="middle" font-size="10" fill="#6b7280">--yes flag to skip confirmation</text>
+
+  <!-- main.py -->
+  <rect x="990" y="983" width="200" height="76" rx="8" fill="#111827" stroke="#4b5563" stroke-width="1.5"/>
+  <text x="1090" y="1001" text-anchor="middle" font-size="11" font-weight="700" fill="#d1d5db">main.py</text>
+  <text x="1090" y="1016" text-anchor="middle" font-size="10" fill="#6b7280">Placeholder shim</text>
+  <text x="1090" y="1030" text-anchor="middle" font-size="10" fill="#6b7280">Prints: streamlit run app.py</text>
+
+  <!-- Arrows: utilities → data layer -->
+  <line x1="230" y1="983" x2="300" y2="960" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <line x1="520" y1="983" x2="550" y2="960" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <line x1="840" y1="983" x2="700" y2="960" stroke="#4b5563" stroke-width="1" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       LEGEND
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <rect x="1100" y="840" width="262" height="218" rx="10" fill="#111827" stroke="#374151" stroke-width="1.5"/>
+  <text x="1231" y="862" text-anchor="middle" font-size="12" font-weight="700" fill="#d1d5db">Legend</text>
+  <line x1="1110" y1="868" x2="1352" y2="868" stroke="#374151" stroke-width="0.8"/>
+
+  <!-- Layer colors -->
+  <rect x="1115" y="878" width="14" height="14" rx="3" fill="#1d4ed8"/>
+  <text x="1137" y="890" font-size="10" fill="#9ca3af">UI Layer (Streamlit)</text>
+
+  <rect x="1115" y="900" width="14" height="14" rx="3" fill="#6d28d9"/>
+  <text x="1137" y="912" font-size="10" fill="#9ca3af">Agent Layer (LangGraph)</text>
+
+  <rect x="1115" y="922" width="14" height="14" rx="3" fill="#b45309"/>
+  <text x="1137" y="934" font-size="10" fill="#9ca3af">Tools Layer (@tool)</text>
+
+  <rect x="1115" y="944" width="14" height="14" rx="3" fill="#065f46"/>
+  <text x="1137" y="956" font-size="10" fill="#9ca3af">RAG Layer (ChromaDB)</text>
+
+  <rect x="1115" y="966" width="14" height="14" rx="3" fill="#7f1d1d"/>
+  <text x="1137" y="978" font-size="10" fill="#9ca3af">Data Layer (Disk)</text>
+
+  <rect x="1115" y="988" width="14" height="14" rx="3" fill="#374151"/>
+  <text x="1137" y="1000" font-size="10" fill="#9ca3af">Utilities / CLI tools</text>
+
+  <!-- Arrow styles -->
+  <line x1="1115" y1="1016" x2="1145" y2="1016" stroke="#4a9eff" stroke-width="2" marker-end="url(#arrow-blue)"/>
+  <text x="1153" y="1020" font-size="10" fill="#9ca3af">Data / control flow</text>
+
+  <line x1="1115" y1="1034" x2="1145" y2="1034" stroke="#4b5563" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arrow-gray)"/>
+  <text x="1153" y="1038" font-size="10" fill="#9ca3af">Optional / indirect</text>
+
+  <rect x="1115" y="1044" width="30" height="14" rx="3" fill="#1a2035" stroke="#4a9eff" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="1153" y="1056" font-size="10" fill="#9ca3af">Shared state / contract</text>
+
+
+  <!-- ════════════════════════════════════════════════════════════════════════
+       DATA FLOW ANNOTATIONS
+  ═══════════════════════════════════════════════════════════════════════════ -->
+  <!-- User input label on main arrow -->
+  <text x="580" y="235" font-size="9" fill="#4a9eff">user_input (str)</text>
+  <!-- Tool result label -->
+  <text x="490" y="394" font-size="9" fill="#d97706">tool_calls + rag_chunks</text>
+
+</svg>
