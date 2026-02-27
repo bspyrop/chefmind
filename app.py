@@ -56,6 +56,7 @@ st.markdown(
         caret-color: #ffffff !important;
         color: #ffffff !important;
     }
+
     </style>
     """,
     unsafe_allow_html=True,
@@ -85,6 +86,12 @@ def _init_state() -> None:
 
     if "video_start_time" not in st.session_state:
         st.session_state.video_start_time = 0
+
+    if "show_tool_calls" not in st.session_state:
+        st.session_state.show_tool_calls = False
+
+    if "show_rag_chunks" not in st.session_state:
+        st.session_state.show_rag_chunks = False
 
 
 _init_state()
@@ -291,49 +298,67 @@ with col_center:
 
 with col_right:
     # ── Panel: Tool Calls (top) ───────────────────────────────────────────────
-    st.markdown('<div class="panel-header">🔧 Tool Calls</div>', unsafe_allow_html=True)
+    tc_count = len(st.session_state.tool_calls)
+    tc_label = f"🔧 Tool Calls ({tc_count})" if tc_count else "🔧 Tool Calls"
+    tc_toggle = "▲ Hide" if st.session_state.show_tool_calls else "▼ Show"
 
-    if not st.session_state.tool_calls:
-        st.caption("Tool invocations will appear here.")
-    else:
-        for i, call in enumerate(reversed(st.session_state.tool_calls), 1):
-            with st.expander(f"[{i}] {call['tool']}", expanded=False):
-                st.markdown("**Input:**")
-                st.code(
-                    json.dumps(call["input"], indent=2, ensure_ascii=False)
-                    if isinstance(call["input"], dict)
-                    else str(call["input"]),
-                    language="json",
-                )
-                st.markdown("**Output:**")
-                try:
-                    parsed_output = json.loads(call["output"])
-                    output_display = json.dumps(parsed_output, indent=2, ensure_ascii=False)
-                except (json.JSONDecodeError, TypeError):
-                    output_display = call["output"]
-                st.code(output_display[:1200], language="json")
+    tc_hdr, tc_btn = st.columns([3, 1])
+    tc_hdr.markdown(f'<div class="panel-header">{tc_label}</div>', unsafe_allow_html=True)
+    if tc_btn.button(tc_toggle, key="toggle_tool_calls", use_container_width=True):
+        st.session_state.show_tool_calls = not st.session_state.show_tool_calls
+        st.rerun()
+
+    if st.session_state.show_tool_calls:
+        if not st.session_state.tool_calls:
+            st.caption("Tool invocations will appear here.")
+        else:
+            for i, call in enumerate(reversed(st.session_state.tool_calls), 1):
+                with st.expander(f"[{i}] {call['tool']}", expanded=False):
+                    st.markdown("**Input:**")
+                    st.code(
+                        json.dumps(call["input"], indent=2, ensure_ascii=False)
+                        if isinstance(call["input"], dict)
+                        else str(call["input"]),
+                        language="json",
+                    )
+                    st.markdown("**Output:**")
+                    try:
+                        parsed_output = json.loads(call["output"])
+                        output_display = json.dumps(parsed_output, indent=2, ensure_ascii=False)
+                    except (json.JSONDecodeError, TypeError):
+                        output_display = call["output"]
+                    st.code(output_display[:1200], language="json")
 
     st.divider()
 
     # ── Panel: RAG Evidence (bottom) ──────────────────────────────────────────
-    st.markdown('<div class="panel-header">🔍 RAG Evidence</div>', unsafe_allow_html=True)
+    rag_count = len(st.session_state.rag_chunks)
+    rag_label = f"🔍 RAG Evidence ({rag_count})" if rag_count else "🔍 RAG Evidence"
+    rag_toggle = "▲ Hide" if st.session_state.show_rag_chunks else "▼ Show"
 
-    if not st.session_state.rag_chunks:
-        st.caption("Retrieved transcript chunks will appear here.")
-    else:
-        for i, chunk in enumerate(st.session_state.rag_chunks, 1):
-            with st.expander(
-                f"[{i}] {chunk.get('title', 'Unknown')} "
-                f"@ {_fmt_time(chunk.get('start_time_sec', 0))}–{_fmt_time(chunk.get('end_time_sec', 0))}",
-                expanded=False,
-            ):
-                st.markdown(f"**Video:** [{chunk.get('title')}]({chunk.get('url')})")
-                st.markdown(
-                    f"**Timestamps:** `{_fmt_time(chunk.get('start_time_sec', 0))}` → "
-                    f"`{_fmt_time(chunk.get('end_time_sec', 0))}`"
-                )
-                score = chunk.get("score")
-                if score is not None:
-                    st.markdown(f"**L2 distance:** `{score}`")
-                st.markdown("**Transcript excerpt:**")
-                st.markdown(f"> {chunk.get('chunk_text', '')[:400]}…")
+    rag_hdr, rag_btn = st.columns([3, 1])
+    rag_hdr.markdown(f'<div class="panel-header">{rag_label}</div>', unsafe_allow_html=True)
+    if rag_btn.button(rag_toggle, key="toggle_rag_chunks", use_container_width=True):
+        st.session_state.show_rag_chunks = not st.session_state.show_rag_chunks
+        st.rerun()
+
+    if st.session_state.show_rag_chunks:
+        if not st.session_state.rag_chunks:
+            st.caption("Retrieved transcript chunks will appear here.")
+        else:
+            for i, chunk in enumerate(st.session_state.rag_chunks, 1):
+                with st.expander(
+                    f"[{i}] {chunk.get('title', 'Unknown')} "
+                    f"@ {_fmt_time(chunk.get('start_time_sec', 0))}–{_fmt_time(chunk.get('end_time_sec', 0))}",
+                    expanded=False,
+                ):
+                    st.markdown(f"**Video:** [{chunk.get('title')}]({chunk.get('url')})")
+                    st.markdown(
+                        f"**Timestamps:** `{_fmt_time(chunk.get('start_time_sec', 0))}` → "
+                        f"`{_fmt_time(chunk.get('end_time_sec', 0))}`"
+                    )
+                    score = chunk.get("score")
+                    if score is not None:
+                        st.markdown(f"**L2 distance:** `{score}`")
+                    st.markdown("**Transcript excerpt:**")
+                    st.markdown(f"> {chunk.get('chunk_text', '')[:400]}…")
