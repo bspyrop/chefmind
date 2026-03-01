@@ -21,6 +21,14 @@ Users interact through a clean 3-column Streamlit chat interface. Under the hood
 
 ---
 
+<p align="center">
+  <img src="screenshots/screenshot1.png" width="32%" />
+  <img src="screenshots/screenshot2.png" width="32%" />
+  <img src="screenshots/screenshot3.png" width="32%" />
+</p>
+
+---
+
 ## Specifications
 
 ![Project Architecture](project-diagram2.svg)
